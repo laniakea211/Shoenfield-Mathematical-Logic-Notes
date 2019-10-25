@@ -1,0 +1,343 @@
+\subsection{Functions and Predicates}
+
+\begin{shaded*}
+There are two types of concepts which appear in mathematical axiom systems:
+\begin{enumerate}
+    \item \df{Logical concepts} are common to all axiom systems.
+    \item \df{Nonlogical concepts} are the remaining concepts.
+\end{enumerate}
+\end{shaded*}
+
+Informally, a \df{set} or \df{class} is a collection of objects.
+If $A$ and $B$ are sets, a \df{mapping from $A$ to $B$} is an assignment of an object in $B$ to each object in $A$.
+If $F$ designates the mapping, and $F$ assigns the element $b$ of $B$ to the element $a$ of $A$, we say that $b$ is the \df{value} of $F$ for the \df{argument} $a$, and write $F(a)$ for $b$.
+An \df{$n$-tuple} in $A$ is a sequence of $n$ objects in $A$.
+We write $(a_1, a_2, \ldots, a_n)$ for the $n$-tuple consisting of the objects $a_1, a_2, \ldots, a_n$ in that order.
+A mapping from the set of $n$-tuples in $A$ to $B$ is called an \df{$n$-ary function from $A$ to $B$}.
+A subset of the set of $n$-tuples in $A$ is called an \df{$n$-ary predicate in $A$}.
+If $P$ represents such a predicate, then $P(a_1, \ldots, a_n)$ means that the $n$-tuple $(a_1, \ldots, a_n)$ is in $P$.
+A unary function from $A$ to $B$ is a mapping from $A$ to $B$, and a unary predicate in $A$ is a subset of $A$.
+
+There is exactly one 0-tuple in $A$, notated ( ).
+A 0-ary function from $A$ to $B$ is simply an element of $B$.
+
+A mathematical axiom system has a certain set of objects called the \df{universe} of the axiom system, and its elements are called the \df{individuals} of the system.
+Functions from the universe to the universe are called \df{individual functions}; predicates in the universe are called \df{individual predicates}.
+We need symbols for certain individuals, individual functions, and individual predicates.
+
+In any set $A$, we can form the binary predicate which consists of all 2-tuples whose first and second elements are the same element in $A$.
+This is the \df{equality predicate} in $A$.
+We shall use = to designate the equality predicate in the universe.
+
+In a modern axiom system, we have several universes in mind.
+For example, in the theory of fields, the possible universes are the various fields.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Truth Function}
+
+We select two objects \T{} and \F{} and call them \df{truth values}.
+We assign \T{} to each true formula and \F{} to each false formula.
+
+We introduce the symbol \& to mean \df{and}.
+The truth value of \A{} \& \B{} is determined by the truth values of \A{} and \B{}, not by what \A{} and \B{} mean.
+
+A \df{truth function} is a function from the set of truth values to the set of truth values.
+There is a binary truth function $H_\&$ such that if $a$ and $b$ are the truth values of \A{} and \B{} respectively, then $H_\&(a,b)$ is the truth value of \A{} \& \B{}
+This function is described by the equations
+\begin{align}
+    H_\&(\T,\T) &= \T\,, \\
+    H_\&(\T,\F) &= H_\&(\F,\T) = H_\&(\F,\F)\,.
+\end{align}
+
+We introduce the symbol $\vee$ to mean \df{or}.
+We take \A{} $\vee$ \B{} to be false only if \A{} and \B{} are both false:
+\begin{align}
+    H_\vee(\T,\T) &= H_\vee(\T,\F) = H_\vee(\F,\T) = \T\,, \\
+    H_\vee(\F,\F) &= \F\,.
+\end{align}
+
+We introduce $\ra$ to mean \emph{if \dots then}, so \A{} $\ra$ \B{} means \emph{if \A{} then \B{}}.
+We regard \A{} $\ra$ \B{} to be false only when \A{} is true and \B{} is false:
+\begin{align}
+    H_\ra(\T,\T) &= H_\ra(\F,\T) = H_\ra(\F,\F) = \T\,, \\
+    H_\ra(\T,\F) &= \F\,.
+\end{align}
+
+We introduce $\lra$ to mean \emph{if and only if}. \A{} $\lra$ \B{} is true if \A{} and \B{} are both true or both false:
+\begin{align}
+    H_\lra(\T,\T) &= H_\lra(\F,\F) = \T\,, \\
+    H_\lra(\T,\F) &= H_\lra(\F,\T) = \F\,.
+\end{align}
+
+We introduce $\neg$ to mean \emph{not}.
+$H_\neg$ is the unary truth function defined by
+\begin{equation}
+    H_\neg(\T) = \F\,, \quad H_\neg(\F) = \T\,.
+\end{equation}
+
+Some symbols can be defined in terms of others.
+For example, \A $\ra$ \B{} means that either \A{} is false of \B{} is true.
+That is, it means the same as $\neg \A{} \vee \B{}$.
+More formally, if $a$ and $b$ are the truth values of \A{} and \B{}, then the truth value of \A $\ra$ \B{} is $H_\ra(a,b)$ and the truth value of $\neg \A{} \vee \B{}$ is $H_\vee(H_\neg(a),b)$.
+But for every $a$ and $b$
+\begin{equation}
+    H_\ra(a,b) = H_\vee(H_\neg(a),b)\,.
+\end{equation}
+
+In the same way, we see that \A{} \& \B{} means the same as $\neg(\A{} \ra \neg \B{})$ and that $\A{} \lra \B{}$ means the same as $(\A{} \ra \B{})$ \& $(\B{} \ra \A{})$.
+One can show that every symbol having a truth function associated with it in the above manner can be defined in terms of $\neg$ and $\vee$ (Problem 1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Variables and Quantifiers}
+
+We cannot express yet a general law such as: \emph{every natural number is equal to itself}.
+So we introduce \df{individual variables} (which we'll just call variables), which vary through the individuals.
+As variables we use the symbols $x$, $y$, $z$, and $w$, adding primes to form new variables when needed.
+
+We introduce the symbol $\forall$, which means \emph{for all individuals}.
+For example, $\forall x (x = 0)$ means \emph{for all natural numbers $x$, $x = 0$}.
+This formula has only one meaning, while $x = 0$ has many.
+
+We call the occurrence of $x$ in $x = 0$ a \df{free} occurrence, and we call the occurrences of $x$ in $\forall x (x = 0)$ \df{bound} occurrences.
+
+We now introduce the symbol $\exists$ to mean \emph{there exists an individual $x$ such that};
+e.g., $\exists x(x = 0)$ means \emph{there exists a natural number $x$ such that $x = 0$}.
+The occurrences of $x$ in $\exists x (x = 0)$ are bound.
+
+We may define $\forall$ in terms of $\exists$.
+We define $\forall x \A{}$ to mean $\neg \exists x \neg \A{}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{First-Order Languages}
+\begin{shaded*}
+    A \df{first-order language} has as symbols the following:
+    \begin{enumerate}
+        \item the variables
+            \begin{equation}
+                x,y,z,w,x',y',z',w',x'',\dots\,;
+            \end{equation}
+        \item for each $n$, the $n$-ary function symbols and the $n$-ary predicate symbols;
+        \item the symbols $\neg$, $\vee$, and $\exists$\,.
+    \end{enumerate}
+\end{shaded*}
+
+Among the binary predicate symbols must be the equality symbol =.
+
+A 0-ary function symbol is called a \df{constant}.
+A function symbol or a predicate symbol other than = is called a \df{nonlogical} symbol;
+other symbols are called \df{logical} symbols.
+
+If we change our notation by writing $\vee \A{}\B{}$ instead of $\A{} \vee \B{}$, we do not need to include parentheses and commas to indicate grouping.
+
+We use \x{}, \y{}, \z{}, and \w{}, as syntactical variables which vary through variables;
+\f{} and \g{} as syntactical variables which vary through function symbols;
+\p{} and \q{} as syntactical variables which vary through predicate symbols;
+and \e{} as a syntactical variable which varies through constants.
+
+We define the \df{terms} by the generalized inductive definition:
+\begin{enumerate}
+    \item[(i)] a variable is a term;
+    \item[(ii)] if $\bu{}_1, \dots, \bu{}_n$ are terms and \f{} is $n$-ary, then $\f{}\bu{}_1 \dots \bu{}_n$ is a term.
+\end{enumerate}
+
+\begin{remark}
+    The terms are just the expressions which designate individuals.
+    For example, in analysis $x$ is a term, and the empty function $\emff{1}( ) = 1$ is a term.
+\end{remark}
+We use \ba{}, \bb{}, \bc{}, and \bd{} as syntactical variables which vary through terms.
+
+An \df{atomic formula} is an expression of the form $\p{}\ba{}_1\dots \ba{}_n$ where \p{} is $n$-ary.
+We define the \df{formulas} by the generalized inductive definition:
+\begin{enumerate}
+    \item[(i)] an atomic formula is a formula;
+    \item[(ii)] if \bu{} is a formula, then $\neg \bu{}$ is a formula;
+    \item[(iii)] if \bu{} and \bv{} are formulas, then $\vee \bu{}\bv{}$ is a formula;
+    \item[(iv)] if \bu{} is a formula, then $\exists \x{} \bu{}$ is a formula.
+\end{enumerate}
+
+\begin{remark}
+    ``Corresponding to these two generalized inductive definitions we have forms of proof by induction.
+    However, it is usually simpler to use induction on the length of the term or formula.
+    Sometimes we use induction on the height of a formula, where the \df{height} is defined to be the number of occurrences of $\neg$, $\vee$, and $\exists$ in the formula."
+\end{remark}
+
+A \df{first-order language} is now defined to be a language in which the symbols and formulas are as described above.
+A first-order language is thus completely determined by its nonlogical symbols.
+
+A \df{designator} is an expression which is either a term or a formula.
+So every designator has the form $\bu{}\bv{}_1 \dots \bv{}_n$ where \bu{} is a symbol, $\bv{}_1$, \dots, $\bv{}_n$ are designators, and $n$ is a natural number determined by \bu{}.
+We call $n$ the index of \bu{};
+e.g., if \bu{} is $\exists$ then $n = 2$.
+
+Two expressions are \df{compatible} if one of them can be obtained by adding some expression to the right end of the other.
+If \bu{}\bv{} and $\bu{}'\bv{}'$ are compatible, then \bu{} and $\bu{}'$ are compatible;
+i.e., if the expressions do not start with the same expression then adding an expression to the end of one will never result in the same expression as the other.
+Similarly, if \bu{}\bv{} and $\bu{}\bv{}'$ are compatible, then \bv{} and $\bv{}'$ are compatible.
+
+\begin{lemma}\label{compatibility lemma}
+    If $\bu{}_1, \dots, \bu{}_n, \bu{}_1', \dots, \bu{}_n'$ are designators and $\bu{}_1 \dots \bu{}_n$ and $\bu{}_1' \dots \bu{}_n'$ are compatible, then $\bu{}_i$ is $\bu{}_i'$ for $i = 1,\dots,n$.
+\end{lemma}
+
+\begin{proof}
+    We use induction on the length of $\bu{}_1 \dots \bu{}_n$.
+    Recall that the length of $\bu{}_1 \dots \bu{}_n$ is the number of occurrences of symbols in $\bu{}_1 \dots \bu{}_n$.
+    
+    Let the length of $\bu{}_1 \dots \bu{}_n$ be one;
+    then $n = 1$.
+    So we have that $\bu{}_1$ and $\bu{}_1'$ are compatible.
+    But the length of $\bu{}_1$ is one, so it is simply a variable \x{}.
+    Since $\bu{}_1$ and $\bu{}_1'$ are compatible, then $\bu{}_1'$ is also the variable \x{}.
+    
+    Now let the length of $\bu{}_1 \dots \bu{}_n$ be arbitrary and suppose the lemma holds for any lesser lengths.
+    We write $\bu{}_1$ as $\bv{} \bv{}_1 \dots \bv{}_k$, where \bv{} is a symbol of index $k$ and $\bv{}_1, \dots, \bv{}_k$ are designators.
+    Since $\bu{}_1 \dots \bu{}_n$ and $\bu{}_1' \dots \bu{}_n'$ are compatible, then $\bu{}_1'$ also starts with \bv{} and so we write $\bu{}_1'$ as $\bv{} \bv{}_1' \dots \bv{}_k'$.
+    But since $\bu{}_1$ and $\bu{}_1'$ are compatible, then $\bv{}_1 \dots \bv{}_k$ and $\bv{}_1' \dots \bv{}_k'$ are compatible.
+    By the inductive hypothesis, we have $\bv{}_i$ is $\bv{}_i'$ for $i = 1, \dots, k$.
+    Thus $\bu{}_1$ is $\bu{}_1'$.
+    Therefore, $\bu{}_2 \dots \bu{}_n$ and $\bu{}_2' \dots \bu{}_n'$ are compatible.
+    But the induction hypothesis, we have $\bu{}_i$ is $\bu{}_i'$ for $i = 2, \dots, n$.
+\end{proof}
+
+\begin{theorem}[Formation Theorem]
+    Every designator can be written in the form $\bu{} \bv{}_1 \dots \bv{}_n$, where \bu{} is a symbol of index $n$ and $\bv{}_1 \dots \bv{}_n$ are designators, in one and only one way.
+\end{theorem}
+
+\begin{proof}
+    We need only prove that it can be done in only one way.
+    Now \bu{} must be the first symbol of the designator;
+    so \bu{} and $n$ are uniquely determined.
+    Thus it remains to show that if $\bu{} \bv{}_1 \dots \bv{}_n$ is the same as $\bu{} \bv{}_1' \dots \bv{}_n'$, where $\bv{}_1, \dots, \bv{}_n$ and $\bv{}_1', \dots, \bv{}_n'$ are designators, then $\bv{}_i$ is $\bv{}_i'$ for $i = 1, \dots, n$.
+    If they are the same, then they are compatible, and so this follows from Lemma \ref{compatibility lemma}.
+\end{proof}
+
+\begin{remark}
+    This states that in a first-order language, commas and parentheses are not necessary to determine grouping.
+\end{remark}
+
+\begin{lemma}\label{occurrence lemma}
+    Every occurrence of a symbol in a designator \bu{} begins an occurrence of a designator in \bu{}.
+\end{lemma}
+
+\begin{proof}
+    We use induction on the length of \bu{}.
+    If the length of \bu{} is one, then \bu{} is simply a variable \x{}, which is a designator.
+    
+    Let the length of \bu{} be arbitrary.
+    Write \bu{} as $\bv{} \bv{}_1 \dots \bv{}_k$, where \bv{} is a symbol and $\bv{}_1, \dots, \bv{}_k$ are designators.
+    If the occurrence of a symbol in question is the initial \bv{}, then it begins \bu{}.
+    Otherwise, the occurrence is in some $\bv{}_i$, and hence, by induction hypothesis, begins an occurrence of a designator in $\bv{}_i$.
+    Hence it begins an occurrence of a designator in \bu{}.
+\end{proof}
+
+\begin{theorem}[Occurrence Theorem]\label{occurrence theorem}
+    Let \bu{} be a symbol of index $n$, and let $\bv{}_1, \dots, \bv{}_n$ be designators.
+    Then any occurrence of a designator \bv{} in $\bu{} \bv{}_1 \dots \bv{}_n$ is either all of $\bu{} \bv{}_1 \dots \bv{}_n$ or a part of one of the $\bv{}_i$.
+\end{theorem}
+
+\begin{proof}
+    Suppose that the initial symbol of the occurrence of \bv{} is the initial \bu{} of $\bu{} \bv{}_1 \dots \bv{}_n$.
+    Then \bv{} is $\bu{} \bv{}_1' \dots \bv{}_n'$ where $\bv{}_1', \dots, \bv{}_n'$ are designators.
+    Since \bv{} is compatible with $\bu{} \bv{}_1 \dots \bv{}_n$, $\bv{}_1' \dots \bv{}_n'$ is compatible with $\bv{}_1 \dots \bv{}_n$.
+    By Lemma \eqref{compatibility lemma}, $\bv{}_i$ is $\bv{}_i'$ for $i = 1, \dots, n$;
+    so \bv{} is all of $\bu{} \bv{}_1 \dots \bv{}_n$.
+    
+    Now suppose that the initial symbol of the occurrence of \bv{} is within $\bv{}_i$.
+    This symbol begins an occurrence of a designator $\bv{}'$ in $\bv{}_i$ by Lemma \eqref{occurrence lemma}.
+    Clearly \bv{} and $\bv{}'$ are compatible;
+    so by Lemma \eqref{compatibility lemma} \bv{} is $\bv{}'$.
+    Hence \bv{} is a part of $\bv{}_i$.
+\end{proof}
+
+An occurrence of \x{} in \A{} is \df{bound in} \A{} if it occurs in a part of \A{} of the form $\exists \x{} \B{}$;
+otherwise, it is \df{free in} \A{}.
+We say that \x{} is \df{free} (\df{bound}) \df{in} \A{} if some occurrence of \x{} is free (bound) in \A{}.
+
+\begin{remark}
+    Note that \x{} may be both free and bound in \A{}.
+    For example, if \A{} is $\f{} \x{} \exists \x{} \B{}$ then the first occurrence of \x{} is free in \A{} and the second occurrence of \x{} is bound in \A{}.
+\end{remark}
+
+It follows from the occurrence theorem (Theorem \eqref{occurrence theorem}) that if \y{} is distinct from \x{}, then the free occurrences of \x{} in $\neg \A{}$, $\vee \A{} \B{}$, and $\exists \y{} \A{}$ are just the free occurrences of \x{} in \A{} and \B{}.
+
+We use $\bb{}_\x{} [\ba{}]$ to designate the expression obtained from \bb{} by replacing each occurrence of \x{} by \ba{};
+and we use $\A{}_\x{} [\ba{}]$ to designate the expression obtained from \A{} by replacing each free occurrence of \x{} by \ba{}.
+
+Let us consider the relationship between what $\A{}_\x{} [\ba{}]$ says about \ba{} and what \A{} says about \x{}.
+For example, suppose that \A{} is $\exists y (x = 2 * y)$, \x{} is $x$, and \ba{} is $y + 1$.
+Then $\A{}_\x{} [\ba{}]$ is $\exists y (y + 1 = 2 * y)$.
+So \A{} says that $x$ is even;
+but $\A{}_\x{} [\ba{}]$ does not say that $y + 1$ is even.
+It says rather that there exists a $y$ for which $y + 1 = 2 * y$.
+So in general, $\A{}_\x{} [\ba{}]$ does not say the same thing about the individual designated by \ba{} that \A{} says about the individual designated by \x{}.
+The reason for this in this example is that the $y$ in the substituted $y + 1$ has become bound.
+We wish to exclude such possibilities.
+
+We say that \ba{} is \df{substitutible for} \x{} \df{in} \A{} if for each variable \y{} occurring in \ba{}, no part of \A{} of the form $\exists \y{} \B{}$ contains an occurrence of \x{} which is free in \A{}.
+We now agree that whenever $\A{}_\x{} [\ba{}]$ appears, \A{}, \x{}, and \ba{} are restricted to represent expressions such that \ba{} is substitutible for \ba{} in \A{}.
+This avoids the problem in the previous example, and so $\A{}_\x{} [\ba{}]$ will always say the same thing about the individual designated by \ba{} that \A{} says about the individual designated by \x{}.
+
+We now extend this notion to several variables.
+We let $\bb{}_{\x{}_1, \dots, \x{}_n} [\ba{}_1, \dots, \ba{}_n]$ designate the term obtained from \bb{} by replacing all occurrences of $\x{}_1, \dots, \x{}_n$ by $\ba{}_1, \dots, \ba{}_n$ respectively;
+and we let $\A{}_{\x{}_1, \dots, \x{}_n} [\ba{}_1, \dots, \ba{}_n]$ designate the formula obtained from \A{} by replacing all free occurrences of $\x{}_1, \dots, \x{}_n$ by $\ba{}_1, \dots, \ba{}_n$ respectively.
+Whenever $\A{}_{\x{}_1, \dots, \x{}_n} [\ba{}_1, \dots, \ba{}_n]$ appears, \A{}, $\x{}_1, \dots, \x{}_n$, $\ba{}_1, \dots, \ba{}_n$ are restricted to represent expressions such that $\ba{}_i$ is substitutible for $\x{}_i$ in \A{} for $i = 1, \dots, n$.
+
+\begin{shaded*}
+    We introduce the following defined symbols:
+    \begin{itemize}
+        \item $(\A{} \vee \B{})$ is an abbreviation of $\vee \A{} \B{}$;
+        \item $(\A{} \ra \B{})$ is an abbreviation of $(\neg \A{} \vee \B{})$;
+        \item $(\A{} \& \B{})$ is an abbreviation of $\neg (\A \ra \neg \B{})$;
+        \item $(\A{} \lra \B{})$ is an abbreviation of\\$((\A{} \ra \B{}) \& (\B{} \ra \A{}))$;
+        \item $\forall \x{} \A{}$ is an abbreviation of and $\neg \exists \x{} \neg \A{}$.
+        \item If \bu{} is a binary predicate or function symbol, then $(\ba{} \bu{} \bb{})$ is an abbreviation of $\bu{} \ba{} \bb{}$;
+        \item if \bu{} is a binary predicate symbol, then $(\ba{} \cancel{\bu{}} \bb{})$ is an abbreviation of $\neg (\ba{} \bu{} \bb{})$.
+    \end{itemize}
+\end{shaded*}
+
+\begin{remark}
+    We omit parentheses when they are not necessary to determine the grouping.
+    Or we may add superfluous parentheses to increase readability.
+    We agree that a formula shall be of the form $\A{} \& \B{}$ or $\A{} \lra \B{}$ rather than $\A{} \vee \B{}$ or $\A \& \B{}$ whenever there is a choice.
+    
+    We adopt the convention of \df{association to the right} for omitting parentheses.
+    Thus $\A{} \vee \B{} \vee \C{} \vee \D{}$ is read $\A{} \vee (\B{} \vee (\C{} \vee \D{}))$, and so on.
+\end{remark}
+
+\begin{shaded*}
+    We call:
+        \begin{itemize}
+            \item $\neg \A{}$ the \df{negation} of \A{};
+            \item $\A{} \vee \B{}$ the \df{disjunction} of \A{} and \B{};
+            \item $\A{} \& \B{}$ the \df{conjunction} of \A{} and \B{};
+            \item $\A{} \ra \B{}$ the \df{implication} of \B{} by \A{};
+            \item $\A{} \lra \B{}$ the \df{equivalence} of \A{} and \B{};
+            \item $\exists \x{} \A{}$ the \df{instantiation} of \A{} by \x{};
+            \item $\forall \x{} \A{}$ the \df{generalization} of \A{} by \x{}; and
+            \item the expressions $\exists \x{}$ and $\forall \x{}$ \df{quantifiers on} \x{}.
+        \end{itemize}
+\end{shaded*}
+
+\begin{remark}
+        We call $\exists \x{}$ an \df{existential} quantifier and $\forall \x{}$ a \df{universal} quantifier.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Structures}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Logical Axioms and Rules}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Problems}

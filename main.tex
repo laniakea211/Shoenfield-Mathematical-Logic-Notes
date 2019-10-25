@@ -1,0 +1,201 @@
+\documentclass[10pt,twocolumn,leqno]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{physics,framed,hyperref,bm, empheq,cancel}
+\usepackage{sectsty}
+\usepackage[many]{tcolorbox}
+\tcbset{enhanced, drop shadow}
+%
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs} % Only number referenced equations
+\usepackage{enumerate}  % Easy generation of fancy enumerated-lists.
+\usepackage{lastpage}
+\usepackage{relsize}    % Provides cmds `\smaller' and `\larger'.
+\usepackage{tikz}       % For drawing
+\usetikzlibrary{matrix}
+
+%% T.fol is commented-out.  Use if you want to rotate text/images, or do
+%% fancy stuff with boxed text/equations .
+
+% \usepackage{graphicx}
+%% T.fol gives many macros for coloring text.
+\usepackage{xcolor}
+
+%% Alternatively, you could use this older package:
+% \usepackage{color}
+\usepackage{url}
+\def\eddress{\begingroup \urlstyle{tt}\Url}
+
+%% Visual editing help
+%\usepackage{showframe}
+%\setlength{\columnseprule}{0.25pt}
+
+%!! Was called "~/Classwork/Analysis/kelly-f-hm.tex".
+
+                        
+\author{{Erin Strickland} \\
+    \eddress{strickland.g.erin@gmail.com}}
+\title{{\vspace*{-1.5in}}Notes on Shoenfield's \\
+    \emph{Mathematical Logic}}
+\date{\vspace{-2ex}}
+%%
+                        %%% STA: Abbreviations %%%
+%%%% Tools
+\newcommand{\nc}{\newcommand}   \nc{\renc}{\renewcommand} \newcommand{\pc}{\providecommand}
+%%
+\nc\jq[1]{``\nobreak#1\unskip''} \nc{\jQ}[1]{`\nobreak#1\unskip'} % Quote
+\nc\df[1]{\textit{\textbf{#1}}} %DeFining a new term.
+\nc\emff{\textbf} % Strong emphasis. (Forte)
+\nc\emf{\textit} % Emphasis.  Does not switch between upshape and
+                        % itshape, unlike \emph.
+\nc\emfu[1]{\underbar{\ignorespaces#1\unskip}}  %Underlined emphasis.
+\nc\emfc[1]{{\color{red}#1}} %Emphasis by color.
+\nc{\emfff}[1]{\emfu{\emff{#1}}}
+%%
+% Note: Don't confuse \naturals with \natural --which is the prefix for a
+% "natural" in musical notation.
+\nc\zed{\mathbb{Z}}     \nc\zplus{{\zed_+}}     \nc\zminus{{\zed_-}}
+\nc\naturals{\mathbb{N}}
+%
+\nc\Q{{\mathbb{Q}}}     \nc\qplus{{\Q_+}}       \nc\qminus{{\Q_-}}
+\nc\QDyadic{{\mathbb{D}}} %Dyadic rationals.
+%
+\nc\reals{\mathbb{R}}    \nc\rplus{{\real_+}}    \nc\rminus{{\real_-}}
+\nc\realonept{{\dot\real}}      %One-point cptification of |R.
+\nc\realtwopt{{\overline\real}} %Two-point cptification of |R.
+% Alternatively:   \nc\realtwopt{{\ddot\real}}
+% T.preceding also called "Extended reals".
+\nc\realtwoptset{{\rcc\mii\pii}}
+%
+\nc\complex{\mathbb{C}} %Complex numbers.
+%
+\nc\proj{\mathbb{P}}
+%%%% Kelly's and Erin's definitions
+\nc\gx{g(x)}            \nc\fx{f(x)}
+\nc\fn{{f_n}}           \nc\fnx{{{f_n}(x)}}
+\nc\kron{\delta_{ij}}   
+\nc\T{\emff{T}}         \nc\F{\emff{F}}
+\nc\A{\emff{A}}         \nc\B{\emff{B}}
+\nc\C{\emff{C}}         \nc\D{\emff{D}}
+\nc\ba{\emff{a}}        \nc\bb{\emff{b}}
+\nc\bc{\emff{c}}        \nc\bd{\emff{d}}
+\nc\bu{\emff{u}}        \nc\bv{\emff{v}}
+\nc\x{\emff{x}}         \nc\y{\emff{y}}
+\nc\z{\emff{z}}         \nc\w{\emff{w}}
+\nc\f{\emff{f}}         \nc\g{\emff{g}}
+\nc\p{\emff{p}}         \nc\q{\emff{q}}
+\nc\e{\emff{e}}
+\nc\la{\leftarrow}      \nc\ra{\rightarrow}
+\nc\lra{\leftrightarrow}
+%
+\nc\vecsp{\mathbb{V}} % Vector space
+\nc\V{\ket{V}} % V ket
+\nc\Vb{\bra{V}} % V bra
+\nc\W{\ket{W}} % W ket
+\nc\Wb{\bra{W}} % W bra
+%
+\nc\sumin{\sum^n_{i = 1}} % Summing notation
+% Roman numerals
+\makeatletter
+\nc{\Rn}[1]{\textup{\uppercase\expandafter{\romannumeral#1}}}
+\nc{\rn}[1]{\romannumeral #1}
+\makeatother
+%
+                        %%% END: Abbreviations %%%
+                        
+                        %%% STA: Modifiers %%%
+%%
+% Style section headings
+\allsectionsfont{\color{violet}\raggedright}
+%
+% Set theorem styles
+\newtheoremstyle{theorem}
+    {}
+    {}
+    {\color{blue}}
+    {}
+    {\color{red}}
+    {}
+    { }
+    {}
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+
+\newtheoremstyle{example}
+    {}
+    {}
+    {}
+    {}
+    {\color{olive}}
+    {}
+    { }
+    {}
+\theoremstyle{example}
+\newtheorem{example}{Example}[subsection]
+
+\newtheoremstyle{exercise}
+    {}
+    {}
+    {\color{teal}}
+    {}
+    {\color{red}}
+    {}
+    { }
+    {}
+\theoremstyle{exercise}
+\newtheorem{exercise}{Exercise}[subsection]
+
+% Redefine \proof and QED symbol
+\renc\qedsymbol{\emfc{$\lozenge$}}
+\renewenvironment{proof}[1][\proofname]{{\emfc{\textit{#1}} }}{\qed}
+
+% Have equations numbered by subsection
+\numberwithin{equation}{subsection}
+
+% Table of contents depth
+\setcounter{tocdepth}{2}
+%%
+                        %%% END: Modifiers %%%
+
+%% Document
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{The Nature of Mathematical Logic}
+\input{chapters/ch1.tex}
+
+\section{First-Order Theories}
+\input{chapters/ch2.tex}
+
+\section{Theorems in First-Order Theories}
+\input{chapters/ch3.tex}
+
+\section{The Characterization Problem}
+\input{chapters/ch4.tex}
+
+\section{The Theory of Models}
+\input{chapters/ch5.tex}
+
+\section{Incompleteness and Undecidability}
+\input{chapters/ch6.tex}
+
+\section{Recursion Theory}
+\input{chapters/ch7.tex}
+
+\section{The Natural Numbers}
+\input{chapters/ch8.tex}
+
+\section{Set Theory}
+\input{chapters/ch9.tex}
+
+\appendix
+\input{chapters/appendix.tex}
+
+\end{document}

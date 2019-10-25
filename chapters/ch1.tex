@@ -1,0 +1,179 @@
+\subsection{Axiom Systems}
+
+It is impossible to prove all mathematical laws. The first laws which one accepts cannot be proved, since there are no earlier laws from which they can be proved.
+Hence we have certain first laws, called \df{axioms}, which we accept without proof; the remaining laws, called \df{theorems}, are proved from the axioms.
+We select axioms which we feel are evident from the nature of the concepts involved.
+
+Similarly, we define concepts in terms of other concepts but cannot define the first.
+The undefined concepts are called \df{basic concepts};
+the remaining concepts are called \df{derived concepts}.
+Basic concepts should be so simple and clear that we can understand them without a precise definition.
+All the concepts which appear in the axioms are basic concepts.
+
+The edifice which the mathematician constructs, consisting of basic concepts, derived concepts, axioms, and theorems, is called an \df{axiom system}.
+They probably had a concrete idea in mind when creating their axiomatic system, but if it is found that other concepts make the axioms true, then all the theorems proved will also be true for these new concepts.
+This has led mathematicians to frame axiom systems in which the axioms are true for a large number of concepts.
+We call such axiom systems \df{modern} axiom systems (e.g., group theory), as opposed to \df{classical} axiom systems (e.g., plane geometry, theory of real numbers).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Formal Systems}
+
+\colorlet{shadecolor}{pink}
+\begin{shaded*}
+An axiom (or theorem) may be viewed in two ways:
+\begin{enumerate}
+    \item A sentence, i.e., as the object which appears on paper when we write down the axiom.
+    \item The meaning of a sentence, i.e., the fact which is expressed by the axiom.
+\end{enumerate}
+It turns out that the first way of thinking is more useful.
+\end{shaded*}
+
+The sentence view is useful because (1) the structure of the sentence will reflect to some extent the meaning of the axiom and (2) the concepts of mathematics are abstract and difficult while a sentence is a concrete object.
+
+\begin{remark}
+``One point is apparent: there is no value in studying concrete (rather than abstract) objects unless we approach them in a concrete or constructive manner.
+For example, when we wish to prove that a concrete object with a certain property exists, we should actually construct such an object, not merely show that the nonexistence of such an object would lead to a contradiction."
+\end{remark}
+
+Proofs which deal with concrete objects in a constructive manner are said to be \df{finitary}.
+Another description is that a proof is finitary if we can \df{visualize} the proof. Neither description is very precise.
+
+\begin{remark}
+Hilbert felt only finitary mathematics was immediately justified by our intuition and suggested a program to show that all of the abstract mathematics commonly accepted can be viewed in this way.
+\end{remark}
+
+The study of axioms and theorems as sentences is called the \df{syntactical} study of axiom systems; the study of the meaning of these sentences is called the \df{semantical} study of axiom  systems.
+
+\begin{shaded*}
+Roughly, a \df{formal system} is the syntactical part of an axiom system. This has three parts:
+\begin{enumerate}
+    \item The first part of a formal system is its \df{language}.
+        To specify a language, we first specify its \df{symbols}.
+        In English, the symbols would be the letters, the digits, and the punctuation marks.
+    \item The second part of a formal system consists of its \df{axioms}.
+    \item The third part of a formal system consists of \df{rules of inference}, which enable us to conclude theorems from the axioms.
+\end{enumerate}
+\end{shaded*}
+
+We then have related definitions.
+\begin{itemize}
+    \item Any finite sequence of symbols of a langauge is called an \df{expression} of that language.
+    \item Each appearance of a symbol is called an \df{occurrence} of that symbol in the expression.
+    \item The number of occurrences of symbols in an expression is called the \df{length} of the expression.
+    \item When an expression appears in another, it is called an \df{occurrence} of the first expression in the second expression.
+    \item We shall require that in each language, certain expressions of the language are designated as the \df{formulas} of the language; it is intended that these be the expressions which assert some fact.
+    \item Each rule of inference states that under certain conditions, one formula, called the \df{conclusion} of the rule, can be \df{inferred} from certain other formulas, called \df{hypotheses} of the rule.
+\end{itemize}
+
+\begin{remark}
+ We allow the empty sequence of symbols as an expression;
+ it is the only expression of length 0.
+ \end{remark}
+
+We consider a language to be completely specified when its symbols and formulas are specified.
+We designate the language of a formal system $F$ by $L(F)$.
+
+Our only requirement on the axioms is that each axiom shall be a formula of the language of the formal system.
+
+\begin{shaded*}
+\df{Theorems} of a formal system $F$ should satisfy the two laws:
+\begin{enumerate}
+    \item[(i)\label{axioms are theorems}] The axioms of $F$ are theorems of $F$.
+    \item[(ii)\label{inductions are theorems}] If all of the hypotheses of a rule of $F$ are theorems of $F$, then the conclusion of the rule is a theorem of $F$.
+\end{enumerate}
+\end{shaded*}
+
+More explicitly, let $S_0$ be the set of axioms; these are the formulas which can be seen to be theorems on the basis of \hyperref[axioms are theorems]{(i)}.
+Let $S_1$ be the set of formulas which are conclusions of rules whose hypotheses are all in $S_0$; these are some of the formulas which can be seen to be theorems on the basis of \hyperref[inductions are theorems]{(ii)}.
+Let $S_2$ be the set of formulas which are conclusions of rules whose hypotheses are all in $S_0$ and $S_1$; these are also theorems on the basis of \hyperref[inductions are theorems]{(ii)}.
+In this way, we can construct sets $S_3$, $S_4$, \ldots.
+Let $S_\omega$ be the set of formulas which are conclusions of rules whose hypotheses are all in at least one of $S_0$, $S_1$, \ldots; these are again theorems by \hyperref[inductions are theorems]{(ii)}.
+We continue in this way until no new theorems can be obtained by \hyperref[inductions are theorems]{(ii)}; and we then have all of the theorems.
+
+A definition of the type just given is called a \df{generalized inductive definition}.
+A generalized inductive definition of a collection $C$ of objects consists of a set of laws, each of which says that, under suitable hypotheses, an object $x$ is in $C$.
+
+\begin{example}
+Suppose that we have defined 0 and \df{successor}, and wish to define \df{natural number}.
+We can give the following generalized inductive definition:
+\begin{enumerate}
+    \item[(i)] 0 is a natural number.
+    \item[(ii)] If $y$ is a natural number, then the successor of $y$ is a natural number.
+\end{enumerate}
+\end{example}
+
+In order to prove that every theorem of $F$ has a property $P$, it suffices to prove that:
+\begin{enumerate}
+    \item[(i$'$)] Every axiom of $F$ has property $P$.
+    \item[(ii$'$)\label{induction hypothesis}] If all of the hypotheses of a rule of $F$ have property $P$, then the conclusion of the rule has property $P$.
+\end{enumerate}
+
+\begin{remark}
+A proof by this method is called a proof \df{by induction on theorems};
+the assumption in \hyperref[induction hypothesis]{(ii$'$)} that the hypotheses of the rule have property $P$ is called the \df{induction hypothesis}.
+\end{remark}
+
+More generally, suppose that a collection $C$ is defined by a generalized inductive definition.
+Then in order to prove that every object in $C$ has property $P$, it suffices to prove that the objects having property $P$ satisfy the laws of the definition.
+Such a proof is called a proof \df{by induction on objects in $C$}.
+The hypotheses in the laws that certain objects belong to $C$ become hypotheses that certain objects have property $P$; these hypotheses are called \df{induction hypotheses}.
+
+A rule in a formal system $F$ is \df{finite} if it has only finitely many hypotheses.
+
+\begin{shaded*}
+Let $F$ be a formal system in which all the rules are finite.
+By a \df{proof} in $F$, we mean a finite sequence of formulas, each of which either is an axiom or is the conclusion of a rule whose hypotheses precede that formula in the proof.
+If $A$ is the last formula in a proof $P$, we say that $P$ is a proof of $A$.
+\end{shaded*}
+
+\begin{theorem}
+A formula $A$ of $F$ is a theorem if and only if there is a proof of $A$.
+\end{theorem}
+
+\begin{proof}
+Suppose $A$ has a proof.
+Then by the rules \hyperref[axioms are theorems]{(i)} and \hyperref[inductions are theorems]{(ii)} every formula in a proof is a theorem.
+
+Now suppose $A$ is a theorem.
+If $A$ is an axiom, then $A$ by itself is a proof of $A$.
+Thus, suppose that $A$ can be inferred from $B_1$, \ldots, $B_n$, by some rule of $F$.
+By the induction hypothesis, each of the $B_i$ has a proof.
+If we put these proofs one after the other, and add $A$ to the end of this sequence, we obtain a proof of $A$.
+\end{proof}
+
+\begin{remark}
+We shall write $\models_F$ \ldots as an abbreviation for \ldots is a theorem of $F$.
+\end{remark}
+
+Complicated expressions can arise, so we allow ourselves to introduce in any language new symbols, called \df{defined symbols}.
+Each such symbol is to be combined in certain ways with symbols of the language and previously introduced defined symbols to form expressions called \df{defined formulas}.
+
+\begin{remark}
+The defined symbols are not symbols of the language, and defined formulas are not formulas of the language. E.g., the length of a defined formula is the number of occurrences of symbols in the formula which the defined formula abbreviates.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Syntactical Variables}
+
+We are able to provide a name for each expression with one convention: each expression shall be used as a name for itself.
+
+We use \df{syntactical variables} in a way similar to variables in an analysis text, except that they vary through the expressions of the language being discussed instead of through the real numbers.
+A formula containing syntactical variables has many meanings, one for each assignment of an expression as a meaning to each syntactical variable occurring in the formula.
+If we assert such a formula, we are claiming that all of its meanings are true.
+
+\begin{example}
+Let $x$ be a symbol of the formal system $F$ and let \bu{} be a syntactical variable.
+Then we can write: if \bu{} is a formula, then the expression obtained by adding $x$ to the right of \bu{} is a formula.
+We can restrict syntactical variables.
+If we use \A{} as a syntactical variable which varies through formulas, then we can instead write: the expression obtained by adding $x$ to the right of \A{} is a formula.
+If \bu{} and \bv{} are syntactical variables, we shall use \bu{}\bv{} to stand for the expression obtained by writing down \bu{} and then writing down \bv{} immediately after it.
+Then we can instead write: \A{}$x$ is a formula.
+\end{example}
+
+As a convention, we use \bu{} and \bv{} as syntactical variables which vary through all expressions, and we use \A{}, \B{}, \C{}, and \D{} as syntactical variables which vary through formulas.
+We may form new syntactical variables by adding primes or subscripts, and these new syntactical variables vary through the same expressions as the old ones.
+
+Note that syntactical variables are not symbols of the language; they are symbols added to English to aid in the discussion of the language.
