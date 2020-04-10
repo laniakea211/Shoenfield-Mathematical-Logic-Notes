@@ -310,26 +310,26 @@ We say that \x{} is \df{free} (\df{bound}) \df{in} \A{} if some occurrence of \x
 It follows from the occurrence theorem (Theorem \eqref{occurrence theorem}) that if \y{} is distinct from \x{}, then the free occurrences of \x{} in $\neg \A{}$, $\vee \A{} \B{}$, and $\exists \y{} \A{}$ are just the free occurrences of \x{} in \A{} and \B{}.
 
 We use $\bb{}_\x{} [\ba{}]$ to designate the expression obtained from \bb{} by replacing each occurrence of \x{} by \ba{};
-and we use $\A{}_\x{} [\ba{}]$ to designate the expression obtained from \A{} by replacing each free occurrence of \x{} by \ba{}.
+and we use $\subst$ to designate the expression obtained from \A{} by replacing each free occurrence of \x{} by \ba{}.
 
 \marginnote{
-    We want $\A{}_\x{} [\ba{}]$ to say the same thing about $\ba{}$ that $\A{}$ says about $\x{}$.
+    We want $\subst$ to say the same thing about $\ba{}$ that $\A{}$ says about $\x{}$.
     So we restrict what is allowed to be substituted in for $\x{}$.
 }
 
-Let us consider the relationship between what $\A{}_\x{} [\ba{}]$ says about \ba{} and what \A{} says about \x{}.
+Let us consider the relationship between what $\subst$ says about \ba{} and what \A{} says about \x{}.
 For example, suppose that \A{} is $\exists y (x = 2 * y)$, \x{} is $x$, and \ba{} is $y + 1$.
-Then $\A{}_\x{} [\ba{}]$ is $\exists y (y + 1 = 2 * y)$.
+Then $\subst$ is $\exists y (y + 1 = 2 * y)$.
 So \A{} says that $x$ is even;
-but $\A{}_\x{} [\ba{}]$ does not say that $y + 1$ is even.
+but $\subst$ does not say that $y + 1$ is even.
 It says rather that there exists a $y$ for which $y + 1 = 2 * y$.
-So in general, $\A{}_\x{} [\ba{}]$ does not say the same thing about the individual designated by \ba{} that \A{} says about the individual designated by \x{}.
+So in general, $\subst$ does not say the same thing about the individual designated by \ba{} that \A{} says about the individual designated by \x{}.
 The reason for this in this example is that the $y$ in the substituted $y + 1$ has become bound.
 We wish to exclude such possibilities.
 
 We say that \ba{} is \df{substitutible for} \x{} \df{in} \A{} if for each variable \y{} occurring in \ba{}, no part of \A{} of the form $\exists \y{} \B{}$ contains an occurrence of \x{} which is free in \A{}.
-We now agree that whenever $\A{}_\x{} [\ba{}]$ appears, \A{}, \x{}, and \ba{} are restricted to represent expressions such that \ba{} is substitutible for \ba{} in \A{}.
-This avoids the problem in the previous example, and so $\A{}_\x{} [\ba{}]$ will always say the same thing about the individual designated by \ba{} that \A{} says about the individual designated by \x{}.
+We now agree that whenever $\subst$ appears, \A{}, \x{}, and \ba{} are restricted to represent expressions such that \ba{} is substitutible for \ba{} in \A{}.
+This avoids the problem in the previous example, and so $\subst$ will always say the same thing about the individual designated by \ba{} that \A{} says about the individual designated by \x{}.
 
 We now extend this notion to several variables.
 We let $\bb{}_{\x{}_1, \dots, \x{}_n} [\ba{}_1, \dots, \ba{}_n]$ designate the term obtained from \bb{} by replacing all occurrences of $\x{}_1, \dots, \x{}_n$ by $\ba{}_1, \dots, \ba{}_n$ respectively;
@@ -434,15 +434,15 @@ We have:
     \item $\msa{}(\A{} \lra \B{}) = H_\lra (\msa{}(\A{}), \msa{}(\B{}))$;
     \item $\msa{}(\A{}_1 \vee \dots \vee \A{}_n) = \T{}$ iff $\msa{}(A{}_i) = \T{}$ for at least one $i$;
     \item $\msa{}(\A{}_1 \& \dots \& \A{}_n) = \T{}$ iff $\msa{}(\A{}_i) = \T{}$ for all $i$; and
-    \item $\msa{}(\forall \x{} \A{}) = \T{}$ iff $\msa{} (\A{}_\x{} [\bi{}]) = \T{}$ for every \bi{} in $L(\msa{})$.
+    \item $\msa{}(\forall \x{} \A{}) = \T{}$ iff $\msa{} (\substi) = \T{}$ for every \bi{} in $L(\msa{})$.
 \end{itemize}
 
 If \A{} is a formula of $L$, an $\msa{}$-\df{instance} of \A{} is a closed formula of the form $\A{}[\bi{}_1, \dots, \bi{}_n]$ in $L(\msa{})$.
 A formula is \df{valid} in $\msa{}$ if $\msa{} (\A{}') = \T{}$ for every $\msa{}$-instance $\A{}'$ of \A{}.
 
-\begin{lemma}
+\begin{lemma}\label{substitution lemma}
 \marginnote{
-    Says $\bb{}_\x [\ba{}]$ and $\A{}_\x{} [\ba{}]$ have the proper meaning.
+    Says $\bb{}_\x [\ba{}]$ and $\subst$ have the proper meaning.
 }
     Let $\msa{}$ be a structure for $L$;
     \ba{} a variable-free term in $L(\msa{})$;
@@ -506,6 +506,153 @@ A formula is \df{valid} in $\msa{}$ if $\msa{} (\A{}') = \T{}$ for every $\msa{}
 
 \subsection{Logical Axioms and Rules}
 
+\marginnote{
+    In order to ensure that all of the theorems of a formal system are valid in $\msa{}$,
+    we require that the axioms be valid and that the rules be such that the validity of the conclusion follows from the validity of the hypotheses.
+}
+
+\df{Logically valid} formulas of $L$ are valid simply because of the meaning of the logical symbols;
+i.e., they are valid in every structure for $L$.
+\df{Logical axioms} are logically valid axioms.
+The others, called \df{nonlogical axioms}, will be valid because of particular properties of the structure $\msa{}$.
+
+We say that \A{} is a \df{logical consequence} of a set $\Gamma$ of formulas if it is a consequence of $\Gamma$ because of the meaning of the logical symbols;
+i.e., if \A{} is valid in every structure for $L$ in which all of the formulas in $\Gamma$ are valid.
+We don't have logical and nonlogical rules because we can always add things as axioms.
+
+Let $L$ be a first-order language. We have:
+\begin{itemize}
+    \item A \df{propositional axiom} is a formula of the form $\propax$\,;
+    \item A \df{substitution axiom} is a formula of the form $\subax$\,;
+    \item An \df{identity axiom} is a formula of the form $\idax$\,;
+    \item An \df{equality axiom} is a formula of the form \[\eqax\] or of the form \[\eqpredax\]\,.
+\end{itemize}
+A \df{logical axiom} is a formula which is either a propositional axiom, a substitution axiom, an identity axiom, or an equality axiom.
+
+We now show that the logical axioms are valid.
+Let $\msa{}$ be a structure for $L$.
+An $\msa{}$-instance of a propositional axiom has the form $\propax$; and
+\[\msa{}(\neg \A{} \vee \A{}) = H_\vee (H_\neg (\msa{}(\A{})), \msa{} (\A{})) = \T{}\,.\]
+An $\msa{}$-instance of a substitution axiom has the form $\subax$.
+Suppose that $\msa{} (\subax) = \F{}$.
+Then $\msa{} (\subst) = \T{}$ and $\msa{} (\exists \x{} \A{}) = \F{}$.
+If \bi{} is the name of $\msa{} (\ba{})$, the latter implies that $\msa{} (\substi) = \F{}$ while the former with Lemma \eqref{substitution lemma} implies that $\msa{} (\substi) = \T{}$.
+This is a contradiction.
+An $\msa{}$-instance of an identity axiom has the form $\bi{} = \bi{}$;
+since $\msa{} (\bi{}) = \msa{} (\bi{})$, then $\msa{} (\bi{} = \bi{}) = \T{}$.
+An $\msa{}$-instance of an equality axiom has the form
+\[\bi{}_1 = \bj{}_1 \ra \dots \ra \bi{}_n = \bj{}_n \ra \f{} \bi{}_1 \dots \bi{}_n = \f{} \bj{}_1 \dots \bj{}_n\,.\]
+We have
+\begin{align*}
+    \msa{} (\bi{}_1 &= \bj{}_1 \ra \dots \ra \bi{}_n = \bj{}_n \ra \f{} \bi{}_1 \dots \bi{}_n = \f{} \bj{}_1 \dots \bj{}_n)\\
+        &= H_\ra (\msa{} (\bi{}_1 = \bj{}_1 \ra \dots \ra \bi{}_n = \bj{}_n),\\
+            &\qquad \msa{} (\f{} \bi{}_1 \dots \bi{}_n = \f{} \bj{}_1 \dots \bj{}_n))\\
+        &= H_\ra (\msa{} (\bi{}_1 = \bj{}_1 \ra \dots \ra \bi{}_n = \bj{}_n),\\
+            &\qquad \f{}_\msa{} (\msa{} (\bi{}_1), \dots, \msa{} (\bi{}_n)) = \f{}_\msa{} (\msa{} (\bj{}_1), \dots, \msa{} (\bj{}_n)))\\
+        &= \T{}\,.
+\end{align*}
+The proof for the predicate form of the equality axiom is similar.
+
+We now introduce five rules of inference:
+\begin{itemize}
+    \item \df{Expansion Rule.} Infer $\B{} \vee \A{}$ from \A{}\,;
+    \item \df{Contraction Rule.} Infer \A{} from $\A{} \vee \A{}$\,;
+    \item \df{Associative Rule.} Infer $(\A{} \vee \B{}) \vee \C{}$ from $\A{} \vee (\B{} \vee \C{})$\,;
+    \item \df{Cut Rule.} Infer $\B{} \vee \C{}$ from $\A{} \vee \B{}$ and $\neg \A{} \vee \C{}$\,;
+    \item \df{$\exists$-Introduction Rule.} If \x{} is not free in \B{}, infer $\exists \x{} \A{} \ra \B{}$ from $\A{} \ra \B{}$\,.
+\end{itemize}
+
+\begin{remark}
+    Note that these rules are finite.
+\end{remark}
+
+We now wish to see that the conclusion of each rule is a logical consequence of the hypotheses of the rule.
+
+We show this first for the Expansion Rule.
+Suppose \A{} is valid in $\msa{}$.
+Let $\B{}' \vee \A{}'$ be an $\msa{}$-instance of $\B{} \vee \A{}$.
+We want to show that $\msa{} (\B{}' \vee \A{}') = \T{}$.
+Since \A{} is valid in $\msa{}$ then $\msa{} (\A{}') = \T{}$, and so $\msa{} (\B{}' \vee \A{}') = \T{}$.
+
+We now show this for the Contraction Rule.
+Suppose $\A{} \vee \A{}$ is valid in $\msa{}$.
+Let $\A{}'$ be an $\msa{}$-instance of $\A{}$.
+We want to show that $\msa{} (\A{}') = \T{}$.
+Since $\A{} \vee \A{}$ is valid in $\msa{}$ then $\msa{} (\A{}' \vee \A{}') = \T{}$, and so $\msa{} (\A{}') = \T{}$.
+
+We now show this for the Associative Rule.
+Suppose $\A{} \vee (\B{} \vee \C{})$ is valid in $\msa{}$.
+Let $(\A{}' \vee \B{}') \vee \C{}'$ be an $\msa{}$-instance of $(\A{} \vee \B{}) \vee \C{}$.
+We want to show that $\msa{} ((\A{}' \vee \B{}') \vee \C{}') = \T{}$.
+Since $\A{} \vee (\B{} \vee \C{})$ is valid in $\msa{}$, then $\msa{} (\A{}' \vee (\B{}' \vee \C{}')) = \T{}$.
+This means that either $\msa{} (\A{}') = \T{}$ or $\msa{} (\B{}' \vee \C{}') = \T{}$.
+In either case, $\msa{} ((\A{}' \vee \B{}') \vee \C{}') = \T{}$.
+
+We now show this for the Cut Rule.
+Suppose that $\A{} \vee \B{}$ and $\neg \A{} \vee \C{}$ are valid in $\msa{}$.
+Let $\B{}' \vee \C{}'$ be an $\msa{}$-instance of $\B{} \vee \C{}$.
+We want to show that $\msa{} (\B{}' \vee \C{}') = \T{}$.
+Since $\A{} \vee \B{}$ is valid in $\msa{}$ then $\msa{} (\A{}' \vee \B{}') = \T{}$. Similarly, $\msa{} (\neg \A{}' \vee \C{}') = \T{}$.
+If $\msa{} (\A{}') = \F{}$ then $\msa{} (\B{}') = \T{}$, and so $\msa{} (\B{}' \vee \C{}') = \T{}$.
+If $\msa{} (\A{}') = \F{}$ then $\msa{} (\C{}') = \T{}$, and so $\msa{} (\B{}' \vee \C{}') = \T{}$.
+
+We now show this for the $\exists$-Introduction Rule.
+Suppose that $\A{} \ra \B{}$ is valid in $\msa{}$ and that \x{} is not free in \B{}.
+Let $\exists \x{} \A{}' \ra \B{}'$ be an $\msa{}$-instance of $\exists \x{} \A{} \ra \B{}$.
+We want to show that $\msa{} (\exists \x{} \A{}' \ra \B{}') = \T{}$.
+Suppose that $\msa{} (\exists \x{} \A{}' \ra \B{}') = \F{}$.
+Then $\msa{} (\exists \x{} \A{}') = \T{}$ and $\msa{} (\B{}') = \F{}$.
+From the former, $\msa{} (\A{}'_\x{} [\bi{}]) = \T{}$ for some $\bi{}$;
+so $\msa{} (\A{}'_\x{} [\bi{}] \ra \B{}') = \F{}$.
+This is a contradiction, since $\A{}'_\x{} [\bi{}] \ra \B{}'$ is an $\msa{}$-instance of the valid formula $\A{} \ra \B{}$.
+Thus, $\msa{} (\exists \x{} \A{}' \ra \B{}') = \T{}$.
+
+\begin{shaded*}
+\marginnote{
+    This is the class of formal systems we will study.
+}
+    A \df{first-order theory}, or simply a \df{theory}, is a formal system $T$ such that
+    \begin{enumerate}
+        \item[(i)] the language of $T$ is a first-order language;
+        \item[(ii)] the axioms of $T$ are the logical axioms of $L(T)$ and certain further axioms, called the nonlogical axioms;
+        \item[(iii)] the rules of $T$ are the expansion rule, the contraction rule, the associative rule, the cut rule, and the $\exists$-introduction rule.
+    \end{enumerate}
+\end{shaded*}
+
+\begin{remark}
+    In order to specify a theory then, we only have to specify its nonlogical symbols and its nonlogical axioms.
+\end{remark}
+
+\begin{example}[Elementary Theory of Groups]
+    The elementary theory of groups, designated by $G$ has only one nonlogical symbol, which is the binary function symbol $\cdot$.
+    The nonlogical axioms of $G$ are:
+    \begin{itemize}
+        \item[G1.] $(x \cdot y) \cdot z = x \cdot (y \cdot z)$\,;
+        \item[G2.] $\exists x (\forall y (x \cdot y = y) \& \forall y \exists z (z \cdot y = x))$\,.
+    \end{itemize}
+\end{example}
+
+By a \df{model} of a theory $T$, we mean a structure for $L(T)$ in which all the nonlogical axioms of $T$ are valid.
+A formula is \df{valid in $T$} if it is valid in every model of $T$;
+equivalently, if it is a logical consequence of the nonlogical axioms of $T$.
+
+\begin{example}
+    The set of $2 \cross 2$ matrices under matrix multiplication is a structure for $G$;
+    however, it is not a model of $G$.
+    The set of invertible $2 \cross 2$ matrices under matrix multiplication is a model for $G$.
+\end{example}
+
+\begin{theorem}[Validity Theorem]\label{validity theorem}
+    If $T$ is a theory, then every theorem of $T$ is valid in $T$.
+\end{theorem}
+
+\begin{proof}
+    We use induction on theorems.
+    If \A{} is a nonlogical axiom, the result is true by the definition of a model.
+    If \A{} is a logical axiom, the result was proved above.
+    If \A{} is the conclusion of a rule, the result follows from the induction hypothesis and the facts proved above.
+\end{proof}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -522,3 +669,19 @@ A formula is \df{valid} in $\msa{}$ if $\msa{} (\A{}') = \T{}$ for every $\msa{}
 \begin{exercise}
     Show that if \bu{}\bv{} and \bv{}\bv{}' are designators, then either \bv{} or \bv{}' is the empty expression.
 \end{exercise}
+
+\begin{proof}
+    Let $\bu{} \bv{}$ and $\bv{} \bv{}'$ be arbitrary designators.
+    Suppose that \bv{} is nonempty.
+    Write $\bv{}\bv{}'$ as $\bv{}'' \bv{}_1 \dots \bv{}_k$, where $\bv{}''$ is a $k$-ary symbol and $\bv{}_1, \dots, \bv{}_k$ are designators.
+    Then \bv{} starts with $\bv{}''$.
+    It must be that \bv{} is a designator, otherwise $\bu{} \bv{}$ would not be a designator.
+    Thus \bv{} is all of $\bv{}'' \bv{}_1 \dots \bv{}_k$ and $\bv{}'$ is the empty expression.
+    
+    Now suppose $\bv{}'$ is nonempty.
+    If $\bv{}'$ is all of $\bv{}'' \bv{}_1 \dots \bv{}_k$, then we are done.
+    So suppose that $\bv{}'$ is not all of $\bv{}'' \bv{}_1 \dots \bv{}_k$.
+    Then \bv{} is nonempty.
+    But we've already shown that if \bv{} is nonempty, then $\bv{}'$ is the empty expression, which is a contradiction.
+    Thus, $\bv{}'$ is all of $\bv{}'' \bv{}_1 \dots \bv{}_k$ and \bv{} is the empty expression.
+\end{proof}
